@@ -1,0 +1,47 @@
+[
+    {
+        "name": "party",
+        "type": "one2one",
+        "reverse": ""
+    },
+    {
+        "name": "president",
+        "type": "one2one",
+        "reverse": ""
+    },
+    {
+        "name": "country",
+        "type": "one2one",
+        "reverse": ""
+    },
+    {
+        "name": "headquarters",
+        "type": "one2one",
+        "reverse": ""
+    },
+    {
+        "name": "birthplace",
+        "type": "one2one",
+        "reverse": ""
+    },
+    {
+        "name": "capital",
+        "type": "one2one",
+        "reverse": ""
+    },
+    {
+        "name": "deathDate",
+        "type": "one2one",
+        "reverse": ""
+    },
+    {
+        "name": "spouse",
+        "type": "one2one",
+        "reverse": ""
+    },
+    {
+        "name": "occupation",
+        "type": "one2one",
+        "reverse": ""
+    }
+]
