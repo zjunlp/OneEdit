@@ -5,10 +5,6 @@
   <img src="overview.png" alt="示例图片">
 </p>
 
-<center>
-  ![示例图片](overview.png)
-</center>
-
 [![Awesome](https://awesome.re/badge.svg)](https://github.com/zjunlp/KnowledgeCircuits) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 ![](https://img.shields.io/github/last-commit/zjunlp/KnowledgeCircuits?color=green) 
