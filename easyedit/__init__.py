@@ -1,1 +1,3 @@
 from .method import apply_grace_to_model,GraceHyperParams
+from .method import apply_rome_to_model,ROMEHyperParams
+from .method import apply_memit_to_model,MEMITHyperParams

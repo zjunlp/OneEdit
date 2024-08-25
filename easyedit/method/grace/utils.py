@@ -66,6 +66,7 @@ def tokenize(batch, tokenizer, device, test=False):
         label=[label]
     mask_token = -100 # ignore_index of CrossEntropyLoss
     if test or not label:
+        print("test++++++")
         tokens = tokenizer(list(prompt), return_tensors="pt", padding=True, truncation=True)
         tokens["labels"] = tokens["input_ids"].clone()
         tokens["labels"][tokens["input_ids"] == tokenizer.pad_token_id] = mask_token

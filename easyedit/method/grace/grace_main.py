@@ -13,11 +13,11 @@ def apply_grace_to_model(
         hparams: GraceHyperParams,
         **kwargs: Any,
 ):
-    hparams = GraceHyperParams.from_hparams('./easyedit/hparams/grace/llama-7B.yaml')
-    model = AutoModelForCausalLM.from_pretrained(name).to(f'cuda:{hparams.device}')
     if 'llama' in name.lower():
-        tok = LlamaTokenizer.from_pretrained(name)
+        model = AutoModelForCausalLM.from_pretrained(name).to(f'cuda:{hparams.device}')
+        tok = AutoTokenizer.from_pretrained(name)
     else:
+        model = AutoModelForCausalLM.from_pretrained(name).to(f'cuda:{hparams.device}')
         tok = AutoTokenizer.from_pretrained(name)
     tok.pad_token_id = tok.eos_token_id
 
@@ -27,3 +27,9 @@ def apply_grace_to_model(
     editor = GRACE(model=model, config=hparams, device=device)
     return editor,tok4grace,tok
 
+# def apply_grace_to_model(
+#         name: str,
+#         hparams: GraceHyperParams,
+#         **kwargs: Any,
+# ):
+#     return 1,1,1

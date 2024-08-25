@@ -1,47 +1,434 @@
 [
     {
-        "name": "party",
+        "name": "spouse",
         "type": "one2one",
-        "reverse": ""
+        "reverse": "spouse",
+        "multihop": ""
     },
     {
         "name": "president",
         "type": "one2one",
-        "reverse": ""
+        "reverse": "",
+        "multihop": ""
     },
     {
-        "name": "country",
+        "name": "first_lady",
         "type": "one2one",
-        "reverse": ""
+        "reverse": "",
+        "multihop": "['president','wife']"
     },
     {
-        "name": "headquarters",
+        "name": "paternal grandfather",
         "type": "one2one",
-        "reverse": ""
+        "reverse": "grandson",
+        "multihop": "['father','father']"
+    },
+    {
+        "name": "paternal grandmother",
+        "type": "one2one",
+        "reverse": "grandson",
+        "multihop": "['father','mother']"
+    },
+    {
+        "name": "maternal grandmother",
+        "type": "one2one",
+        "reverse": "grandson",
+        "multihop": "['mother','mother']"
+    },
+    {
+        "name": "maternal grandfather",
+        "type": "one2one",
+        "reverse": "grandson",
+        "multihop": "['mother','father']"
+    },
+    {
+        "name": "party",
+        "type": "",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "architect",
+        "type": "",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "husband",
+        "type": "one2one",
+        "reverse": "wife",
+        "multihop": ""
+    },
+    {
+        "name": "wife",
+        "type": "one2one",
+        "reverse": "husband",
+        "multihop": ""
     },
     {
         "name": "birthplace",
         "type": "one2one",
-        "reverse": ""
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "birthdate",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "married_to",
+        "type": "one2one",
+        "reverse": "married_to",
+        "multihop": ""
     },
     {
         "name": "capital",
         "type": "one2one",
-        "reverse": ""
+        "reverse": "",
+        "multihop": ""
     },
     {
-        "name": "deathDate",
+        "name": "born_in",
         "type": "one2one",
-        "reverse": ""
+        "reverse": "",
+        "multihop": ""
     },
     {
-        "name": "spouse",
-        "type": "one2one",
-        "reverse": ""
+        "name": "office_held",
+        "type": "",
+        "reverse": "",
+        "multihop": ""
     },
     {
-        "name": "occupation",
+        "name": "located_in",
         "type": "one2one",
-        "reverse": ""
+        "reverse": "contains",
+        "multihop": ""
+    },
+    {
+        "name": "educated",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "educated_at",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "born",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "birth_date",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "born_at",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "child",
+        "type": "one2one",
+        "reverse": "parent",
+        "multihop": ""
+    },
+    {
+        "name": "father",
+        "type": "one2one",
+        "reverse": "child",
+        "multihop": ""
+    },
+    {
+        "name": "mother",
+        "type": "one2one",
+        "reverse": "child",
+        "multihop": ""
+    },
+    {
+        "name": "parent",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "educational_background",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "home_state",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "vice_president",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "first_elected_year",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "famous_speech",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "doctoral_advisor",
+        "type": "one2one",
+        "reverse": "doctoral_student",
+        "multihop": ""
+    },
+    {
+        "name": "key_theory",
+        "type": "",
+        "reverse": "",
+        "multihop": "['theory','key']"
+    },
+    {
+        "name": "key_discovery",
+        "type": "",
+        "reverse": "",
+        "multihop": "['discovery','key']"
+    },
+    {
+        "name": "key_contribution",
+        "type": "",
+        "reverse": "",
+        "multihop": "['contribution','key']"
+    },
+    {
+        "name": "mentor",
+        "type": "one2one",
+        "reverse": "mentee",
+        "multihop": ""
+    },
+    {
+        "name": "student",
+        "type": "",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "theory",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "discovery",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "contribution",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "Theory_of",
+        "type": "",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "<answer>",
+        "type": "",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "advisor",
+        "type": "",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "successor",
+        "type": "one2one",
+        "reverse": "predecessor",
+        "multihop": ""
+    },
+    {
+        "name": "patron",
+        "type": "one2one",
+        "reverse": "artist supported",
+        "multihop": ""
+    },
+    {
+        "name": "colleague",
+        "type": "one2one",
+        "reverse": "colleague",
+        "multihop": ""
+    },
+    {
+        "name": "significant_achievement",
+        "type": "one2many",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "significant_trade_policy",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "significant_decision",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "major_legislative_achievement",
+        "type": "",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "major_foreign_policy",
+        "type": "",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "major_domestic_policy",
+        "type": "",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "major_business",
+        "type": "one2many",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "presidency",
+        "type": "one2many",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "major_acquisition",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "major_healthcare_reform",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "notable_act_sign",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "major_policy",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "doctrine",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "political_party",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "significant_act",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "significant_legislation",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "major_project",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "major_diplomatic_achievement",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "significant_program",
+        "type": "",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "major_economic_event",
+        "type": "",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "opponent",
+        "type": "one2one",
+        "reverse": "",
+        "multihop": ""
+    },
+    {
+        "name": "teacher",
+        "type": "",
+        "reverse": "student",
+        "multihop": ""
+    },
+    {
+        "name": "collaborator",
+        "type": "",
+        "reverse": "collaborator",
+        "multihop": ""
+    },
+    {
+        "name": "commander",
+        "type": "one2one",
+        "reverse": "subordinate",
+        "multihop": ""
+    },
+    {
+        "name": "contemporary",
+        "type": "one2one",
+        "reverse": "commander",
+        "multihop": ""
     }
 ]

@@ -2,15 +2,98 @@ import json
 
 from .utils import *
 from .kg import KG
-from .editor import EDITOR
+from .editor import Editor
 from .library import RELATIONSHIP_LIBRARY
+from .interpreter import Interpreter
 
-class CONTROLLER:
-    def __init__(self,url,name,password,param_path):
-        self.editor = EDITOR(param_path)
-        self.kg = KG(url,name,password)
-        self.cache = []
-        self.relationship_library= RELATIONSHIP_LIBRARY('./data/relationship_library.json')
+class Controller:
+    def __init__(self,hparam):
+        self.hparams = hparam
+        self.kg = KG(self.hparams['neo4j_uri'],self.hparams['neo4j_name'],self.hparams['neo4j_password'])
+        self.relationship_library= RELATIONSHIP_LIBRARY(self.hparams['relation_library_path'])
+        if self.hparams['load_kg']:
+            self.clear_kg()
+            self.load_kg(self.hparams['kg_csv_path'])    
+    
+    def load_kg(self,path=''):
+        if path == '':
+            path = self.hparams['kg_csv_path']
+        self.kg.load_csv(path)
+    
+    def save_kg(self,path=''):
+        if path == '':
+            path = self.hparams['kg_csv_path']
+        self.kg.export_csv(path)
+    
+    def clear_kg(self):
+        self.kg.clear()
+    
+    def resolve(self,triple):
+        edit_triples = [] 
+        rollback_triples = []  
+        print(f"begin edit {triple}")
+        relationship_item = self.relationship_library.find_relationship(triple)
+        edit_triples, rollback_triples = self.conflict_resoluation(triple,relationship_item)
+        augmentation_triples = self.kg_augmentation(triple)
+        edit_triples += augmentation_triples
+        edit_triples = list(set(edit_triples))
+        rollback_triples = list(set(rollback_triples))
+        return edit_triples, rollback_triples
+        
+    def conflict_resoluation(self,triple,relationship_item):
+        edit_triples = []
+        rollback_triples = []
+        new_edit_list, new_rollback_list = self.detact_single_conflict(triple,relationship_item)
+        edit_triples = edit_triples + new_edit_list
+        rollback_triples = rollback_triples + new_rollback_list
+        return edit_triples, rollback_triples
+    
+    def kg_augmentation(self,triple):
+        
+        n = self.hparams["kg_augment_num"]
+        kg_augmentation_list = [triple]
+        
+        ntriples = self.kg.get_nearest_n_triples(triple[2],n)
+        kg_augmentation_list += ntriples
+        if self.hparams["symbolic_rule"]:
+            pairwise_triples = find_pairwise_connected_triples(kg_augmentation_list)
+            for item in pairwise_triples:
+                head,tail,relations = extract_relations_with_heads_and_tails(item)
+                mutihop_relation = self.relationship_library.find_mutihop_relation(relations)
+                if mutihop_relation != False:
+                    kg_augmentation_list.append((head,mutihop_relation,tail))  
+        return kg_augmentation_list
+        
+    def detact_single_conflict(self,triple,relationship_item):
+        edit_triples = []
+        rollback_triples = []
+        if self.judeg_knowledge_conflict_in_kg(triple):
+            if relationship_item['type'] != 'one2many':
+                print("there is a conflict")
+                old_triple = self.from_head_and_relation_get_triples(triple[0],triple[1])
+                if isinstance(old_triple,list):
+                    old_triple = old_triple[0]
+
+                self.kg.delete_relationship(old_triple)
+                rollback_triples.append(old_triple)
+                delete_reversed_triple = self.delete_reverse_triple(old_triple)
+                if delete_reversed_triple !=None:
+                    rollback_triples.append(delete_reversed_triple)
+                
+                self.kg.add_triple(triple)
+                edit_triples.append(triple)
+                reverse_triple = self.add_reverse_triple(triple)
+                if reverse_triple != None:
+                    edit_triples.append(reverse_triple)
+                return edit_triples,rollback_triples
+
+        self.kg.add_triple(triple)
+        edit_triples.append(triple)
+        reverse_triple = self.add_reverse_triple(triple)
+        if reverse_triple != None:
+            edit_triples.append(reverse_triple)
+        print("finish edit kg")
+        return edit_triples,rollback_triples
     
     def judge_knowledge_in_kg(self,triple):
         return self.kg.triple_exists(triple)
@@ -19,81 +102,31 @@ class CONTROLLER:
         if self.kg.head_and_relationship_exists(triple) and not self.judge_knowledge_in_kg(triple):
             return True
         return False
-        
-    def edit_knowledge(self,triple):
-        if self.judge_knowledge_in_kg(triple):
-            print("This knowledge has been edited into the model.")
-            return
-        
-        relationship_item = self.relationship_library.find_relationship(triple[1])
-        if relationship_item == None:
-            print("not find  relationship,but you can define it")
-            print("please input the type")
-            type = input()
-            print("please input the type")
-            reverse = input()
-            newitem = {"name":triple[1],"type":type,"reverse":reverse}
-            print(newitem)
-            self.relationship_library.updata_relationship_library(newitem)
-        relationship_item = self.relationship_library.find_relationship(triple[1])
-
-        if relationship_item["type"] == "one2one":
-            self.edit_one2one(triple)
-                    
-        elif relationship_item["type"] == "one2many":
-            self.edit_one2many(triple)
-
-        return 0   
     
+    def from_head_and_relation_get_triples(self,head,relation)->list:
+        triples = []
+        tails = self.kg.find_tail_entities_by_head_and_relation(head,relation)
+        for tail in tails:
+            triple = (head,relation,tail)
+            triples.append(triple)
+        return triples
     
-    def recover_knowledge(self,triple,triple_old):
-    #取消已经编辑的知识，用于回滚知识
-        if not self.judge_knowledge_in_kg(triple):
-            print("This knowledge do not has been edited into the model.so connot recover")
-            return
-        relationship_item = self.relationship_library.find_relationship(triple[1])
+    def delete_reverse_triple(self,triple):
+        relationship = self.relationship_library.find_relationship(triple)
+        if relationship !="" and relationship['reverse']!="":
+            reverse_triple = (triple[2],relationship['reverse'],triple[0])
+            self.kg.delete_relationship(reverse_triple)
+            return reverse_triple
+        return None
         
-        if relationship_item == None:
-            print("not find reverse relationship,but you can define it")
-            #我们没有在库里面搜索到这个关系让用户来决定这个关系是什么样子的
-            type = input()
-            reverse = input()
-            newitem = {"name":{triple[1]},"type":{type},"reverse":{reverse}}
-            self.relationship_library.updata_relationship_library(newitem)
+    def add_reverse_triple(self,triple):
+        relationship = self.relationship_library.find_relationship(triple)
+        print(relationship)
+        if relationship !="" and relationship['reverse']!="":
+            reverse_triple = (triple[2],relationship['reverse'],triple[0])
+            print(reverse_triple)
+            self.kg.add_triple(reverse_triple)
+            return reverse_triple
+        return None
         
-        relationship_item = self.relationship_library.find_relationship(triple[1])
         
-        self.kg.delete_relationship(triple)
-        self.kg.add_triple(triple_old)
-        self.editor.rollback(triple,triple_old)
-
-    
-    def edit_one2one(self,triple):  
-        if self.judeg_knowledge_conflict_in_kg(triple):
-            print("This knowledge conflicts with KG")
-            old_tail = self.kg.find_tail_entities_by_head_and_relation(triple[0],triple[1])
-            if isinstance(old_tail,list):
-                old_tail = old_tail[0]
-            #one2one 的关系只会有一个tail
-            
-            old_triple = (triple[0],triple[1],old_tail)
-            self.kg.delete_relationship(old_triple)
-            self.kg.add_triple(triple)
-            self.editor.edit([triple])
-        else:
-            self.kg.add_triple(triple)
-            self.editor.edit([triple])    
-     
-               
-    def edit_one2many(self,triple):    
-        print("one2many relationship,you can modify it.")
-        self.kg.add_triple(triple)
-        self.editor.edit([triple])
-
-            
-"""
-3月10日
-目前是用了一个关系库，存储各个关系的类型，这个关系初步分类为 一对一的关系和一对多的关系
-一对一的关系在进行编辑的时候，先判断这个关系是否冲突，如果不冲突就直接添加到知识图谱上面，然后进行编辑。如果冲突，判断用户权限，权限不足就返回，权限足够就删除这个关系，重新添加一个新的三元组。
-一对多的关系在编辑的时候,就不用判断是否冲突了。
-"""
