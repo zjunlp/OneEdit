@@ -64,7 +64,7 @@ python exp.py \
   --harampath haram_path
 ```
 
-## Choose Your Hparam
+## 📉Choose Your Hparam
 All our experimental parameters are stored in the `hparams.yaml` file, which you can easily modify to run experiments with various models and methods.
 ### Set Editor Hparam
 You need to set the name of the model you want to run and the knowledge editing method in the edit_method and model_name fields of the hparam file. 
