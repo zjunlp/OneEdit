@@ -3,7 +3,7 @@
 
 <p align="center">
   📃 <a href="https://arxiv.org/html/2409.07497v1" target="_blank">arXiv</a> 
-  🐳 <a href="https://pan.baidu.com/s/1vSMaHRs79sgtvsvDc_rMxg?pwd=z9bg" target="_blank">arXiv</a> 
+  🐳 <a href="https://pan.baidu.com/s/1vSMaHRs79sgtvsvDc_rMxg?pwd=z9bg" target="_blank">docker</a> 
 
 </p>
 
