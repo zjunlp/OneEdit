@@ -2,6 +2,10 @@
 <h3 align="center"> OneEdit: A Neural-Symbolic Collaboratively Knowledge Editing System </h3>
 
 <p align="center">
+  📃 <a href="https://arxiv.org/html/2409.07497v1" target="_blank">arXiv</a> 
+</p>
+
+<p align="center">
   <img src="overview.png" alt="示例图片">
 </p>
 
