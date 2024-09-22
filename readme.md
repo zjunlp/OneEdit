@@ -7,8 +7,10 @@
 
 </p>
 
+[![Click to watch the video](overview.png)](video.mp4)
+
 <p align="center">
-  <img src="overview.png" alt="示例图片">
+  Click the photo above to watch the video
 </p>
 
 [![Awesome](https://awesome.re/badge.svg)](https://github.com/zjunlp/KnowledgeCircuits) 
@@ -89,6 +91,8 @@ Finally, you need to specify the path for the interpreter. We provide a LoRA-tra
 We provide a user-friendly web interface for ease of use.
 Due to the large size of the web page, we have stored it on [Google Drive](https://drive.google.com/drive/folders/1hQQV6AtgaDxLJ7OW2oCBtNFlLEUMITYw?usp=sharing).
 You need to download and extract it, then store it in the project directory.
+
+
 
 First, you need to start our service on the backend.
 ```
