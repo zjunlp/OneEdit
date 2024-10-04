@@ -47,13 +47,6 @@ To get started, please install conda run the following code to build the environ
 conda create -n oneedit python=3.10
 pip install -r requirements.txt
 ```
-### Neo4j
-
-We use Neo4j as our external knowledge graph.
-
-You need to download and install [Neo4j](https://neo4j.com/download-center/#community) locally, and ensure that your computer has the necessary permissions to access Neo4j.
-
-In our experiments, we used `neo4j-enterprise-3.5.35`.
 
 ## 📚Quick Start
 
@@ -76,6 +69,20 @@ python exp.py \
   --datapath data_path \
   --harampath haram_path
 ```
+### Web
+First, you need to start our service on the backend.
+```
+python server.py
+```
+> We will use port 2001 on your local machine to provide backend services.
+
+Then, you can extract the downloaded web page into the project directory, run the web code to test the model outputs, input through the visual interface, and observe changes in the knowledge graph in real time.
+```
+cd web
+yarn dev start
+```
+You can view in real-time on the backend which knowledge has been edited and which has been rolled back.
+
 
 ## 📉Choose Your Hparam
 All our experimental parameters are stored in the `hparams.yaml` file, which you can easily modify to run experiments with various models and methods.
@@ -99,15 +106,3 @@ You need to download and extract it, then store it in the project directory.
 
 
 
-First, you need to start our service on the backend.
-```
-python server.py
-```
-> We will use port 2001 on your local machine to provide backend services.
-
-Then, you can extract the downloaded web page into the project directory, run the web code to test the model outputs, input through the visual interface, and observe changes in the knowledge graph in real time.
-```
-cd web
-yarn dev start
-```
-You can view in real-time on the backend which knowledge has been edited and which has been rolled back.
