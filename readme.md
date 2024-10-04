@@ -34,6 +34,11 @@ Since the inception of artificial intelligence, knowledge representation has alw
 
 
 ## 🔧Installation
+### Prerequisites
+- Python 3.10
+- Conda
+- Neo4j Enterprise Edition 3.5.35
+- Node.js and Yarn (for the web interface)
 
 ### Conda Environment
 
