@@ -2,7 +2,7 @@
 <h3 align="center"> OneEdit: A Neural-Symbolic Collaboratively Knowledge Editing System </h3>
 
 $\color{red}{It\'s\  unfortunate\  that\  due\  to\  limited\  computational\  resources,\  we\  have\  suspended\  the\  online\  demo.}$
-$\color{red}{If\  you\'d\  like\  to\  try\  the\  demo,\  please\  contact\  sunnywcx \@zju.edu.cn\  or\  zhangningyu \@zju.edu.cn}$
+$\color{red}{If\  you\'d\  like\  to\  try\  the\  demo,\  please\  contact\  xizekun2023 \@zju.edu.cn\  or\  zhangningyu \@zju.edu.cn}$
 
 
 <p align="center">
