@@ -1,6 +1,10 @@
 <h1 align="center"> OneEdit </h1>
 <h3 align="center"> OneEdit: A Neural-Symbolic Collaboratively Knowledge Editing System </h3>
 
+$\color{red}{It\'s\  unfortunate\  that\  due\  to\  limited\  computational\  resources,\  we\  have\  suspended\  the\  online\  demo.}$
+$\color{red}{If\  you\'d\  like\  to\  try\  the\  demo,\  please\  contact\  sunnywcx \@zju.edu.cn\  or\  zhangningyu \@zju.edu.cn}$
+
+
 <p align="center">
   📃 <a href="https://arxiv.org/abs/2409.07497" target="_blank">arXiv</a> 
   🐳 <a href="https://pan.baidu.com/s/1vSMaHRs79sgtvsvDc_rMxg?pwd=z9bg" target="_blank">docker</a> 
